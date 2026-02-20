@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Секретные дорамы</title>
+  <script src="https://graphicslab.io/sdk/v2/rendex-sdk.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: system-ui, sans-serif;
+      background: #111;
+      color: #eee;
+      min-height: 100vh;
+    }
+    h1 { text-align: center; color: #ffcc00; margin-bottom: 40px; }
+    .drama-item {
+      max-width: 800px;
+      margin: 0 auto 30px;
+      background: #1a1a1a;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    }
+    summary {
+      padding: 16px 20px;
+      font-size: 1.25rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: #222;
+      transition: background 0.2s;
+    }
+    summary:hover { background: #2a2a2a; }
+    details[open] summary { background: #333; }
+    summary::-webkit-details-marker { display: none; }
+    .player-wrapper { padding: 0 20px 20px; background: #000; }
+    .vibix-container {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%;
+      overflow: hidden;
+      background: #000;
+      border-radius: 8px;
+    }
+    .vibix-container ins.vibixpl {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Секретные дорамы</h1>
+
+  <div id="dramas-list"></div>
+
+  <script>
+    const dramas = [
+      { title: "Кровавый цветок (2026)", id: "6144", season: 1 },
+      { title: "Честь (2026)", id: "6131", season: 1 },
+    ];
+
+    const container = document.getElementById("dramas-list");
+
+    dramas.forEach(drama => {
+      const details = document.createElement("details");
+      const summary = document.createElement("summary");
+      summary.textContent = drama.title;
+      details.appendChild(summary);
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "player-wrapper";
+
+      const playerDiv = document.createElement("div");
+      playerDiv.className = "vibix-container";
+
+      const ins = document.createElement("ins");
+      ins.className = "vibixpl";
+      ins.setAttribute("data-publisher-id", "671672112");
+      ins.setAttribute("data-id", drama.id);
+      ins.setAttribute("data-season", drama.season);
+      ins.setAttribute("data-type", "series");
+      ins.setAttribute("data-voiceover", "79");
+      ins.setAttribute("data-voiceover-only", "true");
+      ins.setAttribute("data-design", "5");
+
+      playerDiv.appendChild(ins);
+      wrapper.appendChild(playerDiv);
+      details.appendChild(wrapper);
+
+      const itemDiv = document.createElement("div");
+      itemDiv.className = "drama-item";
+      itemDiv.appendChild(details);
+
+      container.appendChild(itemDiv);
+    });
+  </script>
+
+</body>
+</html>
